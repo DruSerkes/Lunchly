@@ -38,6 +38,18 @@ class Reservation {
 		return results.rows.map((row) => new Reservation(row));
 	}
 
+	static async getMostFrequent() {
+		const results = await db.query(
+			`SELECT customer_id
+			FROM reservations
+			GROUP BY customer_id
+			ORDER BY COUNT(customer_id) DESC
+			LIMIT 10
+			`
+		);
+		return results.rows;
+	}
+
 	/** save this reservation */
 	async save() {
 		if (this.id === undefined) {

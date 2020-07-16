@@ -53,6 +53,29 @@ class Customer {
 		return new Customer(customer);
 	}
 
+	static async getByLastName(name) {
+		const result = await db.query(
+			`SELECT id, 
+        first_name AS "firstName",  
+        last_name AS "lastName", 
+        phone, 
+        notes 
+        FROM customers WHERE last_name ILIKE $1
+      `,
+			[ name ]
+		);
+
+		const customer = result.rows[0];
+
+		if (customer === undefined) {
+			const err = new Error(`No such customer: ${name}`);
+			err.status = 404;
+			throw err;
+		}
+
+		return new Customer(customer);
+	}
+
 	/** get all reservations for this customer. */
 
 	async getReservations() {

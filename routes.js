@@ -110,4 +110,23 @@ router.post('/:id/add-reservation/', async function(req, res, next) {
 	}
 });
 
+/** search by name  */
+router.post('/name', async (req, res, next) => {
+	try {
+		const name = req.body.name;
+		const customer = await Customer.getByLastName(name);
+		return res.redirect(`/${customer.id}`);
+	} catch (e) {
+		return next(e);
+	}
+});
+
+router.get('/best', async (req, res, next) => {
+	try {
+		const topIds = Reservation.getMostFrequent()
+	} catch (e) {
+		return next(e);
+	}
+});
+
 module.exports = router;
