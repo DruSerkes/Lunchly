@@ -11,7 +11,7 @@ const app = express();
 // Parse body for urlencoded (non-JSON) data
 app.use(bodyParser.urlencoded({ extended: false }));
 // Use morgan to see incoming requests
-app.use(morgan);
+app.use(morgan('dev'));
 
 nunjucks.configure('templates', {
 	autoescape : true,

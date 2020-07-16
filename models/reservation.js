@@ -40,15 +40,15 @@ class Reservation {
 
 	static async getMostFrequent() {
 		const results = await db.query(
-			`SELECT customer_id
+			`SELECT customer_id AS "id"
 			FROM reservations
 			GROUP BY customer_id
 			ORDER BY COUNT(customer_id) DESC
 			LIMIT 10
 			`
 		);
-		console.log(results.rows);
-		return results.rows;
+		const topIds = results.rows.map((row) => row.id);
+		return topIds;
 	}
 
 	/** save this reservation */

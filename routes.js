@@ -18,6 +18,17 @@ router.get('/', async function(req, res, next) {
 	}
 });
 
+/** View top 10 customers */
+router.get('/best/', async (req, res, next) => {
+	try {
+		let topIds = await Reservation.getMostFrequent();
+		let customers = await Promise.all(topIds.map(async (id) => await Customer.get(id)));
+		return res.render('customer_list.html', { customers });
+	} catch (e) {
+		return next(e);
+	}
+});
+
 /** Form to add a new customer. */
 
 router.get('/add/', async function(req, res, next) {
@@ -116,15 +127,6 @@ router.post('/name', async (req, res, next) => {
 		const name = req.body.name;
 		const customer = await Customer.getByLastName(name);
 		return res.redirect(`/${customer.id}`);
-	} catch (e) {
-		return next(e);
-	}
-});
-
-router.get('/best', async (req, res, next) => {
-	try {
-		const topIds = await Reservation.getMostFrequent();
-		console.log(topIds);
 	} catch (e) {
 		return next(e);
 	}
