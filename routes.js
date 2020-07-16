@@ -32,10 +32,6 @@ router.get('/add/', async function(req, res, next) {
 
 router.post('/add/', async function(req, res, next) {
 	try {
-		// const firstName = req.body.firstName;
-		// const lastName = req.body.lastName;
-		// const phone = req.body.phone;
-		// const notes = req.body.notes;
 		const { firstName, lastName, phone, notes } = req.body;
 
 		const customer = new Customer({ firstName, lastName, phone, notes });
@@ -96,8 +92,9 @@ router.post('/:id/add-reservation/', async function(req, res, next) {
 	try {
 		const customerId = req.params.id;
 		const startAt = new Date(req.body.startAt);
-		const numGuests = req.body.numGuests;
-		const notes = req.body.notes;
+		// const numGuests = req.body.numGuests;
+		// const notes = req.body.notes;
+		const { numGuests, notes } = req.body;
 
 		const reservation = new Reservation({
 			customerId,
