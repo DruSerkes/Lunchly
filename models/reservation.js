@@ -47,6 +47,7 @@ class Reservation {
 			LIMIT 10
 			`
 		);
+		console.log(results.rows);
 		return results.rows;
 	}
 

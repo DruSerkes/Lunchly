@@ -123,7 +123,8 @@ router.post('/name', async (req, res, next) => {
 
 router.get('/best', async (req, res, next) => {
 	try {
-		const topIds = Reservation.getMostFrequent()
+		const topIds = await Reservation.getMostFrequent();
+		console.log(topIds);
 	} catch (e) {
 		return next(e);
 	}
